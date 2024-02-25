@@ -10,11 +10,13 @@ const LayoutProvider = ({ children }: any) => {
     <>
       {/*condition ? consequent : alternative */}
       {!isPublicPage && (
-        <div className="header">
-          <Link href="/">Home</Link>
-          <Link href="/profile">Profile</Link>
-          <Link href="/register">Register</Link>
-          <Link href="/login">Login</Link>
+        <div className="header d-flex text-align-center justify-end">
+          <div className="inner justify-end">
+            <Link href="/">Home</Link>
+            <Link href="/profile">Profile</Link>
+            <Link href="/register">Register</Link>
+            <Link href="/login">Login</Link>
+          </div>
         </div>
       )}
     </>
