@@ -1,16 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
+import User from "../../../../models/userSchema";
+import { dbConnection } from "@/config/dbConnection";
+
+dbConnection();
 
 export async function POST(request: NextRequest) {
   try {
-    //Payload
-    const payLoad = await request.json();
+    const payload = await request.json();
+
+    const existingUser = await User.findOne({ email: payload.email });
+
+    if (existingUser) {
+      return NextResponse.json({
+        message: "User already exists",
+        success: false,
+      });
+    }
+
+    const newUser = new User(payload);
+
+    await newUser.save();
+
     return NextResponse.json(
       {
-        message: "Get route fetched data",
+        message: "User registered successfully",
         success: true,
-        data: payLoad,
+        data: {
+          payload,
+        },
       },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (error: any) {
     return NextResponse.json(
