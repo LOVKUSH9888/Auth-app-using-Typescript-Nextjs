@@ -55,6 +55,7 @@ userSchema.methods.generateAuthToken = function () {
   const payload = {
     _id: user._id,
     email: user.email,
+    password: user.password,
   };
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, {
