@@ -3,22 +3,31 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const LayoutProvider = ({ children }: any) => {
+const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const isPublicPage = pathname === "/login" || pathname === "/register";
+
   return (
     <>
-      {/*condition ? consequent : alternative */}
       {!isPublicPage && (
-        <div className="header d-flex text-align-center justify-end">
-          <div className="inner justify-end">
-            <Link href="/">Home</Link>
-            <Link href="/profile">Profile</Link>
-            <Link href="/register">Register</Link>
-            <Link href="/login">Login</Link>
+        <div className="header flex items-center justify-end bg-gray-800 text-white p-4">
+          <div className="inner flex gap-4">
+            <Link href="/" className="hover:text-gray-300">
+              Home
+            </Link>
+            <Link href="/profile" className="hover:text-gray-300">
+              Profile
+            </Link>
+            <Link href="/register" className="hover:text-gray-300">
+              Register
+            </Link>
+            <Link href="/login" className="hover:text-gray-300">
+              Login
+            </Link>
           </div>
         </div>
       )}
+      {children}
     </>
   );
 };
